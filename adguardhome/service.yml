@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguard-home-ui
+  labels:
+    app: adguard-home
+  annotations:
+    metallb.universe.tf/allow-shared-ip: adguardhome
+
+spec:
+  loadBalancerIP: 10.0.0.0
+  type: LoadBalancer
+
+  ports:
+    - name: setup
+      port: 3000
+      protocol: TCP
+    - name: admin
+      port: 80
+      protocol: TCP
+
+  selector:
+    app: adguard-home
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguard-dns-tcp
+  labels:
+    app: adguard-home
+  annotations:
+    metallb.universe.tf/allow-shared-ip: adguardhome
+
+spec:
+  loadBalancerIP: 10.0.0.0
+  type: LoadBalancer
+
+  ports:
+    - name: dns-tcp
+      port: 53
+      protocol: TCP
+    - name: dns-over-tls
+      port: 853
+      protocol: TCP
+
+  selector:
+    app: adguard-home
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguard-dns-udp
+  labels:
+    app: adguard-home
+  annotations:
+    metallb.universe.tf/allow-shared-ip: adguardhome
+
+spec:
+  loadBalancerIP: 10.0.0.0
+  type: LoadBalancer
+
+  ports:
+    - name: dns-udp
+      port: 53
+      protocol: UDP
+
+  selector:
+    app: adguard-home

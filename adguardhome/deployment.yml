@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard-home
+  labels:
+    app: adguard-home
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adguard-home
+  template:
+    metadata:
+      labels:
+        app: adguard-home
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+      
+      containers:
+        - name: adguard-home
+          image: adguard/adguardhome:v0.107.2
+          imagePullPolicy: IfNotPresent
+
+          volumeMounts:
+            - name: config
+              mountPath: /opt/adguardhome/conf
+            - name: work
+              mountPath: /opt/adguardhome/work
+
+          ports:
+            - name: setup
+              containerPort: 3000
+              protocol: TCP
+            - name: admin
+              containerPort: 80
+              protocol: TCP
+            - name: dns
+              containerPort: 53
+              protocol: TCP
+            - name: dns-udp
+              containerPort: 53
+              protocol: UDP
+            - name: dns-over-tls
+              containerPort: 853
+              protocol: TCP
+          
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+    

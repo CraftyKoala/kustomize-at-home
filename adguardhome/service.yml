@@ -14,9 +14,11 @@ spec:
   ports:
     - name: setup
       port: 3000
+      targetPort: 3000
       protocol: TCP
     - name: admin
       port: 80
+      targetPort: 80
       protocol: TCP
 
   selector:
@@ -39,9 +41,11 @@ spec:
   ports:
     - name: dns-tcp
       port: 53
+      targetPort: 53
       protocol: TCP
     - name: dns-over-tls
       port: 853
+      targetPort: 853
       protocol: TCP
 
   selector:
@@ -64,6 +68,7 @@ spec:
   ports:
     - name: dns-udp
       port: 53
+      targetPort: 53
       protocol: UDP
 
   selector:

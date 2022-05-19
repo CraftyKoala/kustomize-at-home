@@ -19,7 +19,7 @@ spec:
       
       containers:
         - name: pi-alert
-          image: jokobsk/pi.alert:sha-fcfac14
+          image: jokobsk/pi.alert:sha-f4648df
           imagePullPolicy: IfNotPresent
 
           env:

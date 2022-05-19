@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unifi-controller
+  labels:
+    app: unifi-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unifi-controller
+  template:
+    metadata:
+      labels:
+        app: unifi-controller
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+      
+      containers:
+        - name: unifi-controller
+          image: linuxserver/unifi-controller:7.1.65
+          imagePullPolicy: IfNotPresent
+          
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+
+          volumeMounts:
+            - name: config
+              mountPath: /config
+
+          ports:
+            - name: ui
+              containerPort: 8443
+              protocol: TCP
+            - name: stun
+              containerPort: 3478
+              protocol: UDP
+            - name: ap-discovery
+              containerPort: 10001
+              protocol: UDP
+            - name: l2-discovery
+              containerPort: 19000
+              protocol: UDP
+            - name: device-communication
+              containerPort: 8080
+              protocol: TCP
+            - name: guest-portal-https
+              containerPort: 8843
+              protocol: TCP
+            - name: guest-portal-http
+              containerPort: 8880
+              protocol: TCP
+            - name: throughput-test
+              containerPort: 6789
+              protocol: TCP
+            - name: remote-syslog
+              containerPort: 5514
+              protocol: UDP
+          
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+    

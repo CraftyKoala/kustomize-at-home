@@ -50,13 +50,13 @@ spec:
             - name: l2-discovery
               containerPort: 19000
               protocol: UDP
-            - name: device-communication
+            - name: device-com
               containerPort: 8080
               protocol: TCP
-            - name: guest-portal-https
+            - name: guest-p-https
               containerPort: 8843
               protocol: TCP
-            - name: guest-portal-http
+            - name: guest-p-http
               containerPort: 8880
               protocol: TCP
             - name: throughput-test

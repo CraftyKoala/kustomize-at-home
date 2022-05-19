@@ -4,6 +4,8 @@ metadata:
   name: unifi-controller-tcp
   labels:
     app: unifi-controller
+  annotations:
+    metallb.universe.tf/allow-shared-ip: unifi
 
 spec:
   loadBalancerIP: 10.0.0.0
@@ -14,15 +16,15 @@ spec:
       port: 8443
       targetPort: 8443
       protocol: TCP
-    - name: device-communication
+    - name: device-com
       port: 8080
       targetPort: 8080
       protocol: TCP
-    - name: guest-portal-https
+    - name: guest-p-https
       port: 443
       targetPort: 8843
       protocol: TCP
-    - name: guest-portal-http
+    - name: guest-p-http
       port: 80
       targetPort: 8880
       protocol: TCP
@@ -40,6 +42,8 @@ metadata:
   name: unifi-controller-udp
   labels:
     app: unifi-controller
+  annotations:
+    metallb.universe.tf/allow-shared-ip: unifi
 
 spec:
   loadBalancerIP: 10.0.0.0

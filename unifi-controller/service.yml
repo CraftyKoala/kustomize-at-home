@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: unifi-controller
+  name: unifi-controller-tcp
   labels:
     app: unifi-controller
 
@@ -14,18 +14,6 @@ spec:
       port: 8443
       targetPort: 8443
       protocol: TCP
-    - name: stun
-      port: 3478
-      targetPort: 3478
-      protocol: UDP
-    - name: ap-discovery
-      port: 10001
-      targetPort: 10001
-      protocol: UDP
-    - name: l2-discovery
-      port: 19000
-      targetPort: 19000
-      protocol: UDP
     - name: device-communication
       port: 8080
       targetPort: 8080
@@ -42,6 +30,34 @@ spec:
       port: 6789
       targetPort: 6789
       protocol: TCP
+
+  selector:
+    app: unifi-controller
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi-controller-udp
+  labels:
+    app: unifi-controller
+
+spec:
+  loadBalancerIP: 10.0.0.0
+  type: LoadBalancer
+
+  ports:
+    - name: stun
+      port: 3478
+      targetPort: 3478
+      protocol: UDP
+    - name: ap-discovery
+      port: 10001
+      targetPort: 10001
+      protocol: UDP
+    - name: l2-discovery
+      port: 19000
+      targetPort: 19000
+      protocol: UDP
     - name: remote-syslog
       port: 5514
       targetPort: 5514

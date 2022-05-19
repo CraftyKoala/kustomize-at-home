@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pi-alert
+  labels:
+    app: pi-alert
+
+spec:
+  loadBalancerIP: 10.0.0.0
+  type: LoadBalancer
+
+  ports:
+    - name: ui
+      port: 80
+      targetPort: 20211
+      protocol: TCP
+
+  selector:
+    app: pi-alert

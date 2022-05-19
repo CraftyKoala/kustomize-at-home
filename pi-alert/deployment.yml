@@ -22,6 +22,10 @@ spec:
           image: jokobsk/pi.alert:sha-fcfac14
           imagePullPolicy: IfNotPresent
 
+          env:
+            - name: TZ
+              value: Europe/Berlin
+
           volumeMounts:
             - name: config
               mountPath: /home/pi/pialert/config

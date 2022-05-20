@@ -14,13 +14,17 @@ spec:
       labels:
         app: adguard-home
     spec:
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+      
+      replicas: 3
+      strategy:
+        type: Recreate
+
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
-        
-      dnsPolicy: ClusterFirstWithHostNet
-      hostNetwork: true
       
       containers:
         - name: adguard-home

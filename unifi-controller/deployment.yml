@@ -17,6 +17,10 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       hostNetwork: true
       
+      replicas: 3
+      strategy:
+        type: Recreate
+      
       containers:
         - name: unifi-controller
           image: linuxserver/unifi-controller:7.1.65

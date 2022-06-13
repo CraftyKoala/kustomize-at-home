@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uptime-kuma
+  labels:
+    app: uptime-kuma
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uptime-kuma
+  template:
+    metadata:
+      labels:
+        app: uptime-kuma
+    spec:
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+      
+      replicas: 1
+      strategy:
+        type: Recreate
+      
+      containers:
+        - name: uptime-kuma
+          image: louislam/uptime-kuma:1.16.1
+          imagePullPolicy: IfNotPresent
+
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+
+          ports:
+            - name: ui
+              containerPort: 3001
+              protocol: TCP
+          
+          resources:
+            limits:
+              memory: "125Mi"
+              cpu: "100m"
+    

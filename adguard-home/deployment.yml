@@ -17,7 +17,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       hostNetwork: true
       
-      replicas: 3
+      replicas: 1
       strategy:
         type: Recreate
 

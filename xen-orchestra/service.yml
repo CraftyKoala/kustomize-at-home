@@ -1,11 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: xen-orchestra-ui
+  name: xen-orchestra
   labels:
     app: xen-orchestra
-  annotations:
-    metallb.universe.tf/allow-shared-ip: adguardhome
 
 spec:
   loadBalancerIP: 10.0.0.0

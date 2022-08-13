@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: xen-orchestra-ui
+  labels:
+    app: xen-orchestra
+  annotations:
+    metallb.universe.tf/allow-shared-ip: adguardhome
+
+spec:
+  loadBalancerIP: 10.0.0.0
+  type: LoadBalancer
+
+  ports:
+    - name: admin
+      port: 80
+      targetPort: 80
+      protocol: TCP
+
+  selector:
+    app: xen-orchestra

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xen-orchestra
+  labels:
+    app: xen-orchestra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xen-orchestra
+  template:
+    metadata:
+      labels:
+        app: xen-orchestra
+    spec:
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+      
+      replicas: 1
+      strategy:
+        type: Recreate
+
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      
+      containers:
+        - name: xen-orchestra
+          image: ronivay/xen-orchestra:5.100.1
+          imagePullPolicy: IfNotPresent
+
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/xo-server
+            - name: redis
+              mountPath: /var/lib/redis
+
+          ports:
+            - name: admin
+              containerPort: 80
+              protocol: TCP
+          
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+    

@@ -12,7 +12,7 @@ spec:
 
   ports:
     - name: http
-      port: 443
+      port: 80
       targetPort: 8123
       protocol: TCP
 

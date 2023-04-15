@@ -12,8 +12,8 @@ spec:
 
   ports:
     - name: http
-      port: 8123
-      targetPort: 80
+      port: 443
+      targetPort: 8123
       protocol: TCP
 
   selector:

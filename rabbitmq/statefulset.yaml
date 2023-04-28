@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rabbitmq
+  labels:
+    app.kubernetes.io/name: rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: rabbitmq
+  serviceName: rabbitmq
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: rabbitmq
+    spec:
+      dnsPolicy: ClusterFirst
+
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3.11-management-alpine
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+
+        volumeMounts:
+          - name: config
+            mountPath: /etc/rabbitmq/enabled_plugins
+            subPath: enabled_plugins
+          - name: data
+            mountPath: /var/lib/rabbitmq
+
+        ports:
+        - containerPort: 15672
+          name: http  
+          protocol: TCP
+        - containerPort: 1883
+          name: mqtt
+          protocol: TCP
+
+        env:
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              key: RABBITMQ_DEFAULT_PASS
+              name: rabbitmq-credentials
+        - name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            secretKeyRef:
+              key: RABBITMQ_DEFAULT_USER
+              name: rabbitmq-credentials
+
+      volumes:
+        - name: config
+          configMap:
+            name: rabbitmq-config

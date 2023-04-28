@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: rabbitmq-broker
   labels:
-    app.kubernetes.io/name: rabbitmq
+    app.kubernetes.io/name: rabbitmq-broker
 spec:
   type: ClusterIP
   ports:

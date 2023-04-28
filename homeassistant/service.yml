@@ -3,18 +3,14 @@ kind: Service
 metadata:
   name: homeassistant
   labels:
-    app: homeassistant
-  annotations:
-      metallb.universe.tf/loadBalancerIPs: 192.168.0.0
+    app.kubernetes.io/name: homeassistant
 
 spec:
-  type: LoadBalancer
-
+  selector:
+    app.kubernetes.io/name: homeassistant
+  type: ClusterIP
   ports:
     - name: http
       port: 8123
       targetPort: 8123
       protocol: TCP
-
-  selector:
-    app: homeassistant

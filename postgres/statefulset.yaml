@@ -3,17 +3,17 @@ kind: StatefulSet
 metadata:
   name: postgres
   labels:
-    app: postgres
+    app.kubernetes.io/name: postgres
 spec:
   serviceName: postgres
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app.kubernetes.io/name: postgres
   template:
     metadata:
       labels:
-        app: postgres
+        app.kubernetes.io/name: postgres
     spec:
       dnsPolicy: "ClusterFirst"
       hostNetwork: false

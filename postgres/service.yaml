@@ -3,12 +3,13 @@ kind: Service
 metadata:
   name: postgres
   labels:
-    app: postgres
+    app.kubernetes.io/name: postgres
+spec:
+  selector:
+    app.kubernetes.io/name: postgres
   type: ClusterIP
   ports:
     - name: sql
       port: 5432
       targetPort: 5432
       protocol: TCP
-  selector:
-    app: postgres

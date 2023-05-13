@@ -19,7 +19,7 @@ spec:
       
       replicas: 1
       strategy:
-        type: recreate
+        type: Recreate
       
       containers:
         - name: unifi-controller

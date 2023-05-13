@@ -30,6 +30,12 @@ spec:
             - name: config
               mountPath: /config
 
+          env:
+            - name: MEM_STARTUP
+              value: "128"
+            - name: MEM_LIMIT
+              value: "256"
+
           ports:
             - name: ui
               containerPort: 8443
@@ -58,9 +64,9 @@ spec:
             - name: remote-syslog
               containerPort: 5514
               protocol: UDP
-          
+
           resources:
             limits:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
     

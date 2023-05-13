@@ -22,7 +22,7 @@ spec:
       
       containers:
         - name: homeassistant
-          image: homeassistant/home-assistant:2022.4.1
+          image: homeassistant/home-assistant:2023.5
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false

@@ -19,7 +19,7 @@ spec:
       
       replicas: 1
       strategy:
-        type: Recreate
+        type: recreate
       
       containers:
         - name: unifi-controller
@@ -67,6 +67,6 @@ spec:
 
           resources:
             limits:
-              memory: "512Mi"
+              memory: "1Gi"
               cpu: "500m"
     

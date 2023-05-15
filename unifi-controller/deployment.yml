@@ -32,9 +32,9 @@ spec:
 
           env:
             - name: MEM_STARTUP
-              value: "128"
-            - name: MEM_LIMIT
               value: "256"
+            - name: MEM_LIMIT
+              value: "512"
 
           ports:
             - name: ui

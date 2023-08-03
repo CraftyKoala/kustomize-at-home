@@ -14,3 +14,7 @@ spec:
       port: 8123
       targetPort: 8123
       protocol: TCP
+    - name: unicast
+      port: 5683
+      targetPort: 5683
+      protocol: TCP

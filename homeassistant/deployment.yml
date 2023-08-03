@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: homeassistant
+  name: home-assistant
   labels:
-    app.kubernetes.io/name: homeassistant
+    app.kubernetes.io/name: homea-ssistant
 
 spec:
   replicas: 1
@@ -11,28 +11,28 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app.kubernetes.io/name: homeassistant
+      app.kubernetes.io/name: home-assistant
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: homeassistant
+        app.kubernetes.io/name: home-assistant
     spec:
       dnsPolicy: ClusterFirst
       hostNetwork: false
       
       containers:
-        - name: homeassistant
-          image: homeassistant/home-assistant:2023.5
+        - name: home-assistant
+          image: ghcr.io/home-assistant/home-assistant:2023.8
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
           resources:
             requests:
-              memory: 1Gi
+              memory: 800Mi
               cpu: 400m
             limits:
               memory: 2Gi
-              cpu: 1
+              cpu: 1000m
           volumeMounts:
             - name: data
               mountPath: /config
@@ -42,5 +42,8 @@ spec:
           ports:
             - name: http
               containerPort: 8123
+              protocol: TCP
+            - name: unicast
+              containerPort: 5683
               protocol: TCP
     

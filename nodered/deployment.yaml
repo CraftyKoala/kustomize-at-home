@@ -18,7 +18,7 @@ spec:
       hostNetwork: false
       containers:
         - name: node-red
-          image: "nodered/node-red:2.1.5"
+          image: "nodered/node-red:3.1.0"
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false

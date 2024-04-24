@@ -18,3 +18,14 @@ spec:
       port: 5683
       targetPort: 5683
       protocol: TCP
+
+    # -- Homematic XmlRpc
+    - name: xmlrpc
+      port: 1999
+      targetPort: 1999  
+      protocol: TCP
+    # -- Homematic JsonRpc
+    - name: jsonrpc
+      port: 8180
+      targetPort: 8180  
+      protocol: TCP

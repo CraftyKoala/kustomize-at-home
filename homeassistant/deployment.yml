@@ -46,4 +46,13 @@ spec:
             - name: unicast
               containerPort: 5683
               protocol: TCP
+
+            # -- Homematic XmlRpc
+            - name: xmlrpc
+              containerPort: 1999  
+              protocol: TCP
+            # -- Homematic JsonRpc
+            - name: jsonrpc
+              containerPort: 8180  
+              protocol: TCP
     

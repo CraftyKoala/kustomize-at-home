@@ -18,7 +18,7 @@ spec:
       hostNetwork: false
       containers:
         - name: esphome
-          image: "esphome/esphome:2023.9.0"
+          image: "esphome/esphome:2024.4.0"
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false

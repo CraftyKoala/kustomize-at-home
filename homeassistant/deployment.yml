@@ -6,6 +6,7 @@ metadata:
     app.kubernetes.io/name: homea-ssistant
 
 spec:
+  revisionHistoryLimit: 2
   replicas: 1
   strategy:
     type: Recreate
@@ -22,7 +23,7 @@ spec:
       
       containers:
         - name: home-assistant
-          image: ghcr.io/home-assistant/home-assistant:2024.4
+          image: ghcr.io/home-assistant/home-assistant:2024.5
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false

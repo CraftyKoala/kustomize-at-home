@@ -5,8 +5,10 @@ metadata:
   labels:
     app.kubernetes.io/name: raspberrymatic
 spec:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 2
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: raspberrymatic

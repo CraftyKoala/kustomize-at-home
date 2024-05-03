@@ -21,7 +21,7 @@ spec:
       hostNetwork: false
       containers:
         - name: esphome
-          image: "esphome/esphome:2024.4.0"
+          image: "esphome/esphome:2024.4"
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false

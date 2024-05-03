@@ -5,7 +5,10 @@ metadata:
   labels:
     app.kubernetes.io/name: esphome
 spec:
+  revisionHistoryLimit: 2
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: esphome

@@ -1,0 +1,110 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: raspberrymatic
+  labels:
+    app.kubernetes.io/name: raspberrymatic
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: raspberrymatic
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: raspberrymatic
+    spec:
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      enableServiceLinks: true
+      containers:
+        - name: raspberrymatic
+          image: "ghcr.io/jens-maus/raspberrymatic:3.75.7.20240420" 
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+
+          ports:
+            - name: http
+              containerPort: 80  
+              protocol: TCP
+
+            - name: https
+              containerPort: 443  
+              protocol: TCP
+
+            # -- ReGaHss XmlRpc
+            - name: xmlrpc
+              containerPort: 1999  
+              protocol: TCP
+
+            - name: xmlrpc-tls
+              containerPort: 41999  
+              protocol: TCP
+
+            # -- wireless Homematic (rfd)
+            - name: rfd
+              containerPort: 2001  
+              protocol: TCP
+
+            - name: rfd-tls
+              containerPort: 42001  
+              protocol: TCP
+
+            # -- crRFD Legacy XmlRpc - Homematic IP
+            - name: hmip
+              containerPort: 2010  
+              protocol: TCP
+
+            - name: hmip-tls
+              containerPort: 42010  
+              protocol: TCP
+
+            # -- crRFD Legacy XmlRpc - Homematic IP
+            - name: rega
+              containerPort: 8181  
+              protocol: TCP
+
+            - name: rega-tls
+              containerPort: 48181  
+              protocol: TCP
+
+            # -- HMServer - Virtual Devices
+            - name: virt-dev
+              containerPort: 9292  
+              protocol: TCP
+
+            - name: virt-dev-tls
+              containerPort: 49292  
+              protocol: TCP
+
+            - name: snmp
+              containerPort: 161  
+              protocol: UDP
+
+            - name: upnp
+              containerPort: 1900  
+              protocol: UDP
+
+            - name: eq3configd
+              containerPort: 43439  
+              protocol: UDP
+
+          volumeMounts:
+            - name: data
+              mountPath: /usr/local
+              
+            - name: system
+              mountPath: /sys
+
+            - name: modules
+              mountPath: /lib/modules
+
+          resources:
+            requests:
+              memory: 200M
+              cpu: 200m
+            limits:
+              memory: 500M
+              cpu: 1

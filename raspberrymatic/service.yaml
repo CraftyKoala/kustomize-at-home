@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: raspberrymatic
+  labels:
+    app.kubernetes.io/name: raspberrymatic
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+
+    # -- ReGaHss XmlRpc
+    - name: xmlrpc
+      port: 1999
+      containerPort: 1999  
+      protocol: TCP
+
+    - name: xmlrpc-tls
+      port: 41999
+      containerPort: 41999  
+      protocol: TCP
+
+    # -- wireless Homematic (rfd)
+    - name: rfd
+      port: 2001
+      containerPort: 2001  
+      protocol: TCP
+
+    - name: rfd-tls
+      port: 42001
+      containerPort: 42001  
+      protocol: TCP
+
+    # -- crRFD Legacy XmlRpc - Homematic IP
+    - name: hmip
+      port: 2010
+      containerPort: 2010  
+      protocol: TCP
+
+    - name: hmip-tls
+      port: 42010
+      containerPort: 42010  
+      protocol: TCP
+
+    # -- crRFD Legacy XmlRpc - Homematic IP
+    - name: rega
+      port: 8181
+      containerPort: 8181  
+      protocol: TCP
+
+    - name: rega-tls
+      port: 48181
+      containerPort: 48181  
+      protocol: TCP
+
+    # -- HMServer - Virtual Devices
+    - name: virt-dev
+      port: 9292
+      containerPort: 9292  
+      protocol: TCP
+
+    - name: virt-dev-tls
+      port: 49292
+      containerPort: 49292  
+      protocol: TCP
+
+    - name: snmp
+      port: 161
+      containerPort: 161  
+      protocol: UDP
+
+    - name: upnp
+      port: 1900
+      containerPort: 1900  
+      protocol: UDP
+
+    - name: eq3configd
+      port: 43439
+      containerPort: 43439  
+      protocol: UDP
+  selector:
+    app.kubernetes.io/name: raspberrymatic

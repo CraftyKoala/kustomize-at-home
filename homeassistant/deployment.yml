@@ -27,6 +27,7 @@ spec:
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
+
           resources:
             requests:
               memory: 800Mi
@@ -34,12 +35,15 @@ spec:
             limits:
               memory: 2Gi
               cpu: 1000m
+
           volumeMounts:
             - name: data
               mountPath: /config
+
           env:
             - name: TZ
               value: Europe/Berlin
+              
           ports:
             - name: http
               containerPort: 8123

@@ -4,6 +4,7 @@ metadata:
   name: raspberrymatic
   labels:
     app.kubernetes.io/name: raspberrymatic
+
 spec:
   revisionHistoryLimit: 2
   replicas: 1
@@ -19,13 +20,31 @@ spec:
     spec:
       dnsPolicy: ClusterFirst
       hostNetwork: false
-      enableServiceLinks: true
+
       containers:
         - name: raspberrymatic
           image: "ghcr.io/jens-maus/raspberrymatic:3.75.7.20240420" 
           imagePullPolicy: IfNotPresent
           securityContext:
             privileged: true
+
+          resources:
+            requests:
+              memory: 200M
+              cpu: 200m
+            limits:
+              memory: 500M
+              cpu: 1
+
+          volumeMounts:
+            - name: data
+              mountPath: /usr/local
+              
+            - name: system
+              mountPath: /sys
+
+            - name: modules
+              mountPath: /lib/modules
 
           ports:
             - name: http
@@ -92,21 +111,3 @@ spec:
             - name: eq3configd
               containerPort: 43439  
               protocol: UDP
-
-          volumeMounts:
-            - name: data
-              mountPath: /usr/local
-              
-            - name: system
-              mountPath: /sys
-
-            - name: modules
-              mountPath: /lib/modules
-
-          resources:
-            requests:
-              memory: 200M
-              cpu: 200m
-            limits:
-              memory: 500M
-              cpu: 1

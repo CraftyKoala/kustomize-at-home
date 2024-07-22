@@ -15,7 +15,7 @@ spec:
         app: unifi-controller
     spec:
       dnsPolicy: ClusterFirstWithHostNet
-      hostNetwork: true
+      hostNetwork: false
       
       replicas: 1
       strategy:

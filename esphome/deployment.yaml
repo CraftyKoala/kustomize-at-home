@@ -19,6 +19,10 @@ spec:
     spec:
       dnsPolicy: ClusterFirst
       hostNetwork: false
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: esphome-config
       containers:
         - name: esphome
           image: "esphome/esphome:2024.4"
@@ -46,9 +50,4 @@ spec:
             limits:
               memory: 1Gi
               cpu: 1
-      
-      volumes:
-        - name: config
-          persistantVolumeClaim:
-            claimName: esphome-config
           

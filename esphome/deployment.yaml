@@ -46,3 +46,9 @@ spec:
             limits:
               memory: 1Gi
               cpu: 1
+      
+      volumes:
+        - name: config
+          persistantVolumeClaim:
+            claimName: esphome-config
+          

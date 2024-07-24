@@ -20,7 +20,12 @@ spec:
       replicas: 1
       strategy:
         type: Recreate
-      
+
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: unifi-config
+
       containers:
         - name: unifi-controller
           image: linuxserver/unifi-controller:7.1.65

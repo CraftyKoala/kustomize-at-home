@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-network
+  labels:
+    app.kubernetes.io/name: mongo-network
+spec:
+  serviceName: mongo-network
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mongo-network
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mongo-network
+    spec:
+      dnsPolicy: "ClusterFirst"
+      hostNetwork: false
+
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: mongo-network-data
+            
+      containers:
+        - name: mongodb
+          image: "mongo:7.0.12"
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+
+          resources:
+            requests:
+              memory: 100M
+              cpu: 100m
+            limits:
+              memory: 500M
+              cpu: 1
+
+          volumeMounts:
+            - name: data
+              mountPath: /data/db
+
+          ports:
+            - name: api
+              containerPort: 8081  
+              protocol: TCP
+
+          env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-network-credentials
+                key: init_user     
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-network-credentials
+                key: init_password    

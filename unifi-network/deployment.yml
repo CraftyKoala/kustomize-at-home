@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unifi-network
+  labels:
+    app: unifi-network
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unifi-network
+  template:
+    metadata:
+      labels:
+        app: unifi-network
+    spec:
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: false
+      
+      replicas: 1
+      strategy:
+        type: Recreate
+
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: unifi-network-config
+
+      containers:
+        - name: unifi-network
+          image: lscr.io/linuxserver/unifi-network-application:8.3
+          imagePullPolicy: IfNotPresent
+
+          volumeMounts:
+            - name: config
+              mountPath: /config
+
+          env:
+          
+          - name: TZ
+            value: "Europe/Berlin"
+
+          - name: MONGO_HOST
+            value: "mongo-network"
+          - name: MONGO_PORT
+            value: "27017"
+          - name: MONGO_DBNAME
+            value: "unifi-network"
+          - name: MONGO_USER
+            valueFrom:
+              secretKeyRef:
+                name: unifi-network-credentials
+                key: unifi_network_user  
+          - name: MONGO_PASS
+            valueFrom:
+              secretKeyRef:
+                name: unifi-network-credentials
+                key: unifi_network_pass
+
+          ports:
+            - name: ui
+              containerPort: 8443
+              protocol: TCP
+            - name: stun
+              containerPort: 3478
+              protocol: UDP
+            - name: ap-discovery
+              containerPort: 10001
+              protocol: UDP
+            - name: l2-discovery
+              containerPort: 19000
+              protocol: UDP
+            - name: device-com
+              containerPort: 8080
+              protocol: TCP
+            - name: guest-p-https
+              containerPort: 8843
+              protocol: TCP
+            - name: guest-p-http
+              containerPort: 8880
+              protocol: TCP
+            - name: throughput-test
+              containerPort: 6789
+              protocol: TCP
+            - name: remote-syslog
+              containerPort: 5514
+              protocol: UDP
+
+          resources:
+            requests:
+              memory: 300M
+              cpu: 200m
+            limits:
+              memory: 1Gi
+              cpu: 500m
+    

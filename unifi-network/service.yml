@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi-network-tcp
+  labels:
+    app: unifi-network
+  annotations:
+    metallb.universe.tf/allow-shared-ip: unifi-network
+
+spec:
+  type: LoadBalancer
+
+  ports:
+    - name: ui
+      port: 8443
+      targetPort: 8443
+      protocol: TCP
+    - name: device-com
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+    - name: guest-p-https
+      port: 443
+      targetPort: 8843
+      protocol: TCP
+    - name: guest-p-http
+      port: 80
+      targetPort: 8880
+      protocol: TCP
+    - name: throughput-test
+      port: 6789
+      targetPort: 6789
+      protocol: TCP
+
+  selector:
+    app: unifi-network
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi-network-udp
+  labels:
+    app: unifi-network
+  annotations:
+    metallb.universe.tf/allow-shared-ip: unifi-network
+
+spec:
+  type: LoadBalancer
+
+  ports:
+    - name: stun
+      port: 3478
+      targetPort: 3478
+      protocol: UDP
+    - name: ap-discovery
+      port: 10001
+      targetPort: 10001
+      protocol: UDP
+    - name: l2-discovery
+      port: 19000
+      targetPort: 19000
+      protocol: UDP
+    - name: remote-syslog
+      port: 5514
+      targetPort: 5514
+      protocol: UDP
+
+  selector:
+    app: unifi-network

@@ -44,7 +44,7 @@ spec:
 
           ports:
             - name: api
-              containerPort: 8081  
+              containerPort: 27017  
               protocol: TCP
 
           env:

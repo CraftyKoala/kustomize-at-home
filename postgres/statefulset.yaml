@@ -18,38 +18,38 @@ spec:
       dnsPolicy: "ClusterFirst"
       hostNetwork: false
       containers:
-        - name: postgres
-          image: "postgres:15.2-alpine"
-          imagePullPolicy: IfNotPresent
-          securityContext:
-            allowPrivilegeEscalation: false
+      - name: postgres
+        image: "postgres:16-alpine"
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
 
-          resources:
-            requests:
-              memory: 100M
-              cpu: 100m
-            limits:
-              memory: 500M
-              cpu: 1
+        resources:
+          requests:
+            memory: 100M
+            cpu: 100m
+          limits:
+            memory: 500M
+            cpu: 1
 
-          volumeMounts:
-            - name: data
-              mountPath: /var/lib/postgresql/data
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/data
 
-          ports:
-            - name: sql
-              containerPort: 5432  
-              protocol: TCP
+        ports:
+        - name: sql
+          containerPort: 5432
+          protocol: TCP
 
-          env:
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: postgres-credentials
-                key: POSTGRES_PASSWORD     
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: POSTGRES_PASSWORD
 
       volumes:
-        - name: data
-          hostPath: 
-            path: /var/lib/postgresql/data
-            type: DirectoryOrCreate
+      - name: data
+        hostPath:
+          path: /var/lib/postgresql/data
+          type: DirectoryOrCreate

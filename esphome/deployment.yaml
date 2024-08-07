@@ -20,34 +20,34 @@ spec:
       dnsPolicy: ClusterFirst
       hostNetwork: false
       volumes:
-        - name: config
-          persistentVolumeClaim:
-            claimName: esphome-config
+      - name: config
+        persistentVolumeClaim:
+          claimName: esphome-config
       containers:
-        - name: esphome
-          image: "esphome/esphome:2024.4"
-          imagePullPolicy: IfNotPresent
-          securityContext:
-            allowPrivilegeEscalation: false
+      - name: esphome
+        image: ghcr.io/esphome/esphome:2024.7.2
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
 
-          env:
-          - name: ESPHOME_DASHBOARD_USE_PING
-            value: "true"
+        env:
+        - name: ESPHOME_DASHBOARD_USE_PING
+          value: "true"
 
-          ports:
-            - name: http
-              containerPort: 6052  
-              protocol: TCP
+        ports:
+        - name: http
+          containerPort: 6052
+          protocol: TCP
 
-          volumeMounts:
-            - name: config
-              mountPath: /config
+        volumeMounts:
+        - name: config
+          mountPath: /config
 
-          resources:
-            requests:
-              memory: 200M
-              cpu: 200m
-            limits:
-              memory: 1Gi
-              cpu: 1
-          
+        resources:
+          requests:
+            memory: 200M
+            cpu: 200m
+          limits:
+            memory: 1Gi
+            cpu: 1
+

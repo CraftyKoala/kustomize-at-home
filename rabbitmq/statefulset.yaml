@@ -19,7 +19,7 @@ spec:
 
       containers:
       - name: rabbitmq
-        image: rabbitmq:3.12-management-alpine
+        image: rabbitmq:3.11-management-alpine
         imagePullPolicy: IfNotPresent
         securityContext:
           allowPrivilegeEscalation: false

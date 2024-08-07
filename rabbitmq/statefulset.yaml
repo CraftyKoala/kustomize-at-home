@@ -19,21 +19,21 @@ spec:
 
       containers:
       - name: rabbitmq
-        image: rabbitmq:3.11-management-alpine
+        image: rabbitmq:3.13-management-alpine
         imagePullPolicy: IfNotPresent
         securityContext:
           allowPrivilegeEscalation: false
 
         volumeMounts:
-          - name: config
-            mountPath: /etc/rabbitmq/enabled_plugins
-            subPath: enabled_plugins
-          - name: data
-            mountPath: /var/lib/rabbitmq
+        - name: config
+          mountPath: /etc/rabbitmq/enabled_plugins
+          subPath: enabled_plugins
+        - name: data
+          mountPath: /var/lib/rabbitmq
 
         ports:
         - containerPort: 15672
-          name: http  
+          name: http
           protocol: TCP
         - containerPort: 1883
           name: mqtt
@@ -52,6 +52,6 @@ spec:
               name: rabbitmq-credentials
 
       volumes:
-        - name: config
-          configMap:
-            name: rabbitmq-config
+      - name: config
+        configMap:
+          name: rabbitmq-config

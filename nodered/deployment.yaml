@@ -17,29 +17,29 @@ spec:
       dnsPolicy: ClusterFirst
       hostNetwork: false
       containers:
-        - name: node-red
-          image: "nodered/node-red:3.1.9"
-          imagePullPolicy: IfNotPresent
-          securityContext:
-            allowPrivilegeEscalation: false
+      - name: node-red
+        image: "nodered/node-red:4.0"
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
 
-          resources:
-            requests:
-              memory: 100M
-              cpu: 200m
-            limits:
-              memory: 500M
-              cpu: 1
+        resources:
+          requests:
+            memory: 100M
+            cpu: 200m
+          limits:
+            memory: 500M
+            cpu: 1
 
-          volumeMounts:
-            - name: data
-              mountPath: /data
+        volumeMounts:
+        - name: data
+          mountPath: /data
 
-          ports:
-            - name: http
-              containerPort: 1880  
-              protocol: TCP
-              
-          env:
-          - name: TZ
-            value: "Europe/Berlin"
+        ports:
+        - name: http
+          containerPort: 1880
+          protocol: TCP
+
+        env:
+        - name: TZ
+          value: "Europe/Berlin"

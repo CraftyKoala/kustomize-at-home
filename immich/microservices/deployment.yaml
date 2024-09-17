@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-microservices
+  labels: {}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: {}
+  template:
+    metadata:
+      labels: {}
+    spec:
+      # Prevent config interference
+      enableServiceLinks: false
+      containers:
+        - name: immich-microservices
+          image: ghcr.io/immich-app/immich-server:latest
+          command:
+            - "/bin/sh"
+          args:
+            - ./start-microservices.sh
+          env: []
+          envFrom:
+            - configMapRef:
+                name: immich-env
+            - secretRef:
+                name: immich-env-overide
+                optional: true
+          volumeMounts:
+            - name: library
+              mountPath: /usr/src/app/upload
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi

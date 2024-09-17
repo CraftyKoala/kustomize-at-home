@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: immich
+resources:
+  - namespace.yaml
+  - ./server
+  - ./microservices
+  - ./machine-learning
+
+commonLabels:
+  app.kubernetes.io/name: immich
+
+images:
+  - name: ghcr.io/immich-app/immich-machine-learning
+    newTag: v1.97.0
+  - name: ghcr.io/immich-app/immich-server
+    newTag: v1.97.0
+
+configMapGenerator:
+  - name: immich-env
+    literals:
+      - IMMICH_MACHINE_LEARNING_URL=http://immich-machine-learning:3003

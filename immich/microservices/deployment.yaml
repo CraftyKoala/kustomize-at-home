@@ -23,12 +23,6 @@ spec:
           args:
             - ./start-microservices.sh
           env: []
-          envFrom:
-            - configMapRef:
-                name: immich-env
-            - secretRef:
-                name: immich-env-overide
-                optional: true
           volumeMounts:
             - name: library
               mountPath: /usr/src/app/upload

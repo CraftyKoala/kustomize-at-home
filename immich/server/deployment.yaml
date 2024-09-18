@@ -24,6 +24,8 @@ spec:
           args:
             - ./start-server.sh
           env:
+            - name: TZ
+              value: "Europe/Berlin"
             - name: IMMICH_MACHINE_LEARNING_URL
               value: http://immich-machine-learning:3003
           envFrom:

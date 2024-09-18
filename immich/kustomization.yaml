@@ -15,8 +15,3 @@ images:
     newTag: v1.97.0
   - name: ghcr.io/immich-app/immich-server
     newTag: v1.97.0
-
-configMapGenerator:
-  - name: immich-env
-    literals:
-      - IMMICH_MACHINE_LEARNING_URL=http://immich-machine-learning:3003

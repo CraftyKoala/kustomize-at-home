@@ -23,7 +23,9 @@ spec:
             - "/bin/sh"
           args:
             - ./start-server.sh
-          env: []
+          env:
+            - name: IMMICH_MACHINE_LEARNING_URL
+              value: http://immich-machine-learning:3003
           envFrom:
             - configMapRef:
                 name: immich-env

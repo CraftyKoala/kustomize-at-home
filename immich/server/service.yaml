@@ -3,10 +3,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: immich-server
-  labels: {}
+  labels:
+    app.kubernetes.io/component: immich-server
+    app.kubernetes.io/name: immich
 spec:
   type: LoadBalancer
   selector:
+    app.kubernetes.io/component: immich-server
     app.kubernetes.io/name: immich
   ports:
     - port: 3001

@@ -2,16 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: immich-server
-  labels: {}
+  labels:
+    app.kubernetes.io/component: immich-server
+    app.kubernetes.io/name: immich
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
-    matchLabels: {}
+    matchLabels:
+      app.kubernetes.io/component: immich-server
+      app.kubernetes.io/name: immich
   template:
     metadata:
-      labels: {}
+      labels:
+        app.kubernetes.io/component: immich-server
+        app.kubernetes.io/name: immich
     spec:
       # Prevent config interference
       enableServiceLinks: false

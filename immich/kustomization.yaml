@@ -6,9 +6,6 @@ resources:
   - ./microservices
   - ./machine-learning
 
-commonLabels:
-  app.kubernetes.io/name: immich
-
 images:
   - name: ghcr.io/immich-app/immich-machine-learning
     newTag: v1.97.0

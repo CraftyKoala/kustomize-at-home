@@ -15,7 +15,13 @@ spec:
     spec:
       containers:
         - name: tailscale
-          image: ghcr.io/tailscale/tailscale:v1.72.1
+          image: ghcr.io/tailscale/tailscale:v1.74
+          imagePullPolicy: Always
+
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
 
           resources:
             requests:
@@ -26,10 +32,21 @@ spec:
               cpu: 1
 
           env:
+            - name: TS_ROUTES
+              value: "{{TS_ROUTES}}"
             - name: TS_KUBE_SECRET
-              value: "tailscale-state"
+              value: "tailscale-auth"
+            - name: TS_USERSPACE
+              value: "false"
+            - name: TS_DEBUG_FIREWALL_MODE
+              value: auto
             - name: TS_AUTHKEY
               valueFrom:
                 secretKeyRef:
                   name: tailscale-auth
-                  key: authkey
+                  key: TS_AUTHKEY
+                  optional: true
+
+          envFrom:
+            - configMapRef:
+                name: tailscale-config

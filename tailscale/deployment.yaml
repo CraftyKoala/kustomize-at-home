@@ -13,6 +13,7 @@ spec:
       labels:
         app: tailscale
     spec:
+      serviceAccountName: tailscale
       containers:
         - name: tailscale
           image: ghcr.io/tailscale/tailscale:v1.74

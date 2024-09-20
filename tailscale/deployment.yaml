@@ -7,6 +7,8 @@ spec:
     matchLabels:
       app: tailscale
   replicas: 1
+  strategy:
+    type: Recreate
   hostNetwork: true
   template:
     metadata:

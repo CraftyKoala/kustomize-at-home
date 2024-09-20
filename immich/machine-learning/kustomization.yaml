@@ -6,4 +6,4 @@ resources:
   - service.yaml
 
 commonLabels:
-  app.kubernetes.io/component: machine-learning
+  app.kubernetes.io/component: immich-machine-learning

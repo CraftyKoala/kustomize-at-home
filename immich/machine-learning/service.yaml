@@ -6,9 +6,11 @@ metadata:
   labels: {}
 spec:
   type: ClusterIP
+  selector:
+    app.kubernetes.io/component: immich-machine-learning
+    app.kubernetes.io/name: immich
   ports:
     - port: 3003
       targetPort: http
       protocol: TCP
       name: http
-  selector: {}

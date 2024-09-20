@@ -32,8 +32,6 @@ spec:
               cpu: 1
 
           env:
-            - name: TS_ROUTES
-              value: "{{TS_ROUTES}}"
             - name: TS_KUBE_SECRET
               value: "tailscale-auth"
             - name: TS_USERSPACE

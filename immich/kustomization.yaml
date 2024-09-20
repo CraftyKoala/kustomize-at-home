@@ -8,6 +8,6 @@ resources:
 
 images:
   - name: ghcr.io/immich-app/immich-machine-learning
-    newTag: v1.97.0
+    newTag: v1.115.0
   - name: ghcr.io/immich-app/immich-server
-    newTag: v1.97.0
+    newTag: v1.115.0

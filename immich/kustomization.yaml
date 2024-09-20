@@ -11,3 +11,10 @@ images:
     newTag: v1.115.0
   - name: ghcr.io/immich-app/immich-server
     newTag: v1.115.0
+
+configMapGenerator:
+  - name: immich-env
+    literals:
+      - TZ="Europe/Berlin"
+      - IMMICH_MACHINE_LEARNING_URL=http://immich-machine-learning:3003
+      - DB_VECTOR_EXTENSION=pgvector

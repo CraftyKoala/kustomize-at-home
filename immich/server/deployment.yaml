@@ -25,22 +25,34 @@ spec:
         - name: immich-server
           image: ghcr.io/immich-app/immich-server:latest
           imagePullPolicy: IfNotPresent
-          command:
-            - "/bin/sh"
-          args:
-            - ./start-server.sh
+
           env:
-            - name: TZ
-              value: "Europe/Berlin"
-            - name: IMMICH_MACHINE_LEARNING_URL
-              value: http://immich-machine-learning:3003
+            - name: IMMICH_WORKERS_INCLUDE
+              value: "api"
+          envFrom:
+            - configMapRef:
+                name: immich-env
+            - secretRef:
+                name: immich-credentials
+
           ports:
             - name: http
               containerPort: 3001
               protocol: TCP
+
           volumeMounts:
             - name: library
               mountPath: /usr/src/app/upload
+
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: 200m
+              memory: 512Mi
+
+          # Health checks
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -49,6 +61,7 @@ spec:
             initialDelaySeconds: 0
             periodSeconds: 10
             timeoutSeconds: 1
+
           readinessProbe:
             failureThreshold: 3
             httpGet:
@@ -57,10 +70,3 @@ spec:
             initialDelaySeconds: 0
             periodSeconds: 10
             timeoutSeconds: 1
-          resources:
-            limits:
-              cpu: "1"
-              memory: 1Gi
-            requests:
-              cpu: 200m
-              memory: 512Mi

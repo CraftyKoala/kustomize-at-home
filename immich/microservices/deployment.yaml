@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/component: immich-microservices
     app.kubernetes.io/name: immich
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: Recreate
   selector:
@@ -24,14 +24,20 @@ spec:
       containers:
         - name: immich-microservices
           image: ghcr.io/immich-app/immich-server:latest
-          command:
-            - "/bin/sh"
-          args:
-            - ./start-microservices.sh
-          env: []
+
+          env:
+            - name: IMMICH_WORKERS_EXCLUDE
+              value: "api"
+          envFrom:
+            - configMapRef:
+                name: immich-env
+            - secretRef:
+                name: immich-credentials
+
           volumeMounts:
             - name: library
               mountPath: /usr/src/app/upload
+
           resources:
             limits:
               cpu: "1"

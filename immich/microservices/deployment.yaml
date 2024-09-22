@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/component: immich-microservices
     app.kubernetes.io/name: immich
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: Recreate
   selector:

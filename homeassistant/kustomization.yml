@@ -3,3 +3,7 @@ kind: Kustomization
 resources:
   - deployment.yml
   - service.yml
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: home-assistant

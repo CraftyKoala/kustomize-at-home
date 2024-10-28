@@ -2,62 +2,53 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: home-assistant
-  labels:
-    app.kubernetes.io/name: homea-ssistant
 
 spec:
   revisionHistoryLimit: 2
   replicas: 1
   strategy:
     type: Recreate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: home-assistant
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: home-assistant
     spec:
       dnsPolicy: ClusterFirst
       hostNetwork: false
 
       containers:
-      - name: home-assistant
-        image: ghcr.io/home-assistant/home-assistant:2024.8
-        imagePullPolicy: IfNotPresent
-        securityContext:
-          allowPrivilegeEscalation: false
+        - name: home-assistant
+          image: ghcr.io/home-assistant/home-assistant:2024.10
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
 
-        resources:
-          requests:
-            memory: 800Mi
-            cpu: 400m
-          limits:
-            memory: 2Gi
-            cpu: 1000m
+          resources:
+            requests:
+              memory: 800Mi
+              cpu: 400m
+            limits:
+              memory: 2Gi
+              cpu: 1000m
 
-        volumeMounts:
-        - name: data
-          mountPath: /config
+          volumeMounts:
+            - name: data
+              mountPath: /config
 
-        env:
-        - name: TZ
-          value: Europe/Berlin
+          env:
+            - name: TZ
+              value: Europe/Berlin
 
-        ports:
-        - name: http
-          containerPort: 8123
-          protocol: TCP
-        - name: unicast
-          containerPort: 5683
-          protocol: TCP
+          ports:
+            - name: http
+              containerPort: 8123
+              protocol: TCP
+            - name: unicast
+              containerPort: 5683
+              protocol: TCP
 
-        # -- Homematic XmlRpc
-        - name: xmlrpc
-          containerPort: 1999
-          protocol: TCP
-        # -- Homematic JsonRpc
-        - name: jsonrpc
-          containerPort: 8180
-          protocol: TCP
-
+            # -- Homematic XmlRpc
+            - name: xmlrpc
+              containerPort: 1999
+              protocol: TCP
+            # -- Homematic JsonRpc
+            - name: jsonrpc
+              containerPort: 8180
+              protocol: TCP

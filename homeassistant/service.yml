@@ -4,6 +4,8 @@ metadata:
   name: home-assistant
 
 spec:
+  selector:
+    app.kubernetes.io/name: home-assistant
   type: ClusterIP
   ports:
     - name: http

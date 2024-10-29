@@ -8,7 +8,13 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: home-assistant
   template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: home-assistant
     spec:
       dnsPolicy: ClusterFirst
       hostNetwork: false

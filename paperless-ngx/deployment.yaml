@@ -45,6 +45,8 @@ spec:
           env:
             - name: TZ
               value: Europe/Berlin
+            - name: PAPERLESS_PORT
+              value: 8000
 
           envFrom:
             - configMapRef:

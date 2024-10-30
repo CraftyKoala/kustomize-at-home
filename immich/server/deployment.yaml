@@ -51,22 +51,3 @@ spec:
             requests:
               cpu: 800m
               memory: 512Mi
-
-          # Health checks
-          livenessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /api/server/ping
-              port: http
-            initialDelaySeconds: 0
-            periodSeconds: 10
-            timeoutSeconds: 1
-
-          readinessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /api/server/ping
-              port: http
-            initialDelaySeconds: 0
-            periodSeconds: 10
-            timeoutSeconds: 1

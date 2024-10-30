@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: home-assistant
+  labels:
+    app.kubernetes.io/name: homea-ssistant
 
 spec:
   revisionHistoryLimit: 2

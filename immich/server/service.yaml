@@ -12,7 +12,7 @@ spec:
     app.kubernetes.io/component: immich-server
     app.kubernetes.io/name: immich
   ports:
-    - port: 80
+    - port: 2283
       targetPort: 2283
       protocol: TCP
       name: http

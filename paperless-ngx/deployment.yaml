@@ -47,6 +47,8 @@ spec:
               value: Europe/Berlin
             - name: PAPERLESS_PORT
               value: "8000"
+            - name: PAPERLESS_FILENAME_FORMAT
+              value: "{{ document_type }}/{{ created_year }}/{{ correspondent }}/{{ title }}"
 
           envFrom:
             - configMapRef:

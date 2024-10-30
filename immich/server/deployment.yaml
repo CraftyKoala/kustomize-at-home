@@ -56,7 +56,7 @@ spec:
           livenessProbe:
             failureThreshold: 3
             httpGet:
-              path: /server/ping
+              path: /api/server/ping
               port: http
             initialDelaySeconds: 0
             periodSeconds: 10
@@ -65,7 +65,7 @@ spec:
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /server/ping
+              path: /api/server/ping
               port: http
             initialDelaySeconds: 0
             periodSeconds: 10

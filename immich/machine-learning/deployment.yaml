@@ -27,13 +27,24 @@ spec:
           env:
             - name: TRANSFORMERS_CACHE
               value: /cache
+
           ports:
             - name: http
               containerPort: 3003
               protocol: TCP
+
           volumeMounts:
             - name: cache
               mountPath: /cache
+
+          resources:
+            limits:
+              cpu: "2"
+              memory: 3Gi
+            requests:
+              cpu: 500m
+              memory: 1.5Gi
+
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -50,13 +61,7 @@ spec:
             initialDelaySeconds: 0
             periodSeconds: 10
             timeoutSeconds: 1
-          resources:
-            limits:
-              cpu: "2"
-              memory: 3Gi
-            requests:
-              cpu: 500m
-              memory: 1.5Gi
+
       volumes:
         - name: cache
           emptyDir: {}

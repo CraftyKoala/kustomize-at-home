@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless
+
+spec:
+  revisionHistoryLimit: 2
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+
+      containers:
+        - name: paperless
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.5.1
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+
+          resources:
+            requests:
+              memory: 400Mi
+              cpu: 400m
+            limits:
+              memory: 4Gi
+              cpu: 2
+
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: ingest
+              mountPath: /ingest
+            - name: media
+              mountPath: /media
+
+          env:
+            - name: TZ
+              value: Europe/Berlin
+
+          envFrom:
+            - configMapRef:
+                name: paperless-config
+            # For sensitive data, use secrets instead
+            - secretRef:
+                name: paperless-secrets
+
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP

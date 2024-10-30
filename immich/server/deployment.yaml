@@ -37,7 +37,7 @@ spec:
 
           ports:
             - name: http
-              containerPort: 3001
+              containerPort: 2283
               protocol: TCP
 
           volumeMounts:
@@ -51,3 +51,22 @@ spec:
             requests:
               cpu: 800m
               memory: 512Mi
+
+          # Health checks
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/server/ping
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 20
+            timeoutSeconds: 4
+
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/server/ping
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 20
+            timeoutSeconds: 4

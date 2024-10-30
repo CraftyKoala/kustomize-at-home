@@ -23,7 +23,7 @@ spec:
 
       containers:
         - name: raspberrymatic
-          image: "ghcr.io/jens-maus/raspberrymatic:3.75.7.20240420" 
+          image: "ghcr.io/jens-maus/raspberrymatic:3.77.7.20240826"
           imagePullPolicy: IfNotPresent
           securityContext:
             privileged: true
@@ -39,7 +39,7 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /usr/local
-              
+
             - name: system
               mountPath: /sys
 
@@ -48,66 +48,66 @@ spec:
 
           ports:
             - name: http
-              containerPort: 80  
+              containerPort: 80
               protocol: TCP
 
             - name: https
-              containerPort: 443  
+              containerPort: 443
               protocol: TCP
 
             # -- ReGaHss XmlRpc
             - name: xmlrpc
-              containerPort: 1999  
+              containerPort: 1999
               protocol: TCP
 
             - name: xmlrpc-tls
-              containerPort: 41999  
+              containerPort: 41999
               protocol: TCP
 
             # -- wireless Homematic (rfd)
             - name: rfd
-              containerPort: 2001  
+              containerPort: 2001
               protocol: TCP
 
             - name: rfd-tls
-              containerPort: 42001  
+              containerPort: 42001
               protocol: TCP
 
             # -- crRFD Legacy XmlRpc - Homematic IP
             - name: hmip
-              containerPort: 2010  
+              containerPort: 2010
               protocol: TCP
 
             - name: hmip-tls
-              containerPort: 42010  
+              containerPort: 42010
               protocol: TCP
 
             # -- crRFD Legacy XmlRpc - Homematic IP
             - name: rega
-              containerPort: 8181  
+              containerPort: 8181
               protocol: TCP
 
             - name: rega-tls
-              containerPort: 48181  
+              containerPort: 48181
               protocol: TCP
 
             # -- HMServer - Virtual Devices
             - name: virt-dev
-              containerPort: 9292  
+              containerPort: 9292
               protocol: TCP
 
             - name: virt-dev-tls
-              containerPort: 49292  
+              containerPort: 49292
               protocol: TCP
 
             - name: snmp
-              containerPort: 161  
+              containerPort: 161
               protocol: UDP
 
             - name: upnp
-              containerPort: 1900  
+              containerPort: 1900
               protocol: UDP
 
             - name: eq3configd
-              containerPort: 43439  
+              containerPort: 43439
               protocol: UDP

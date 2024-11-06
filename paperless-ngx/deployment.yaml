@@ -37,6 +37,8 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
+            - name: temp
+              mountPath: /tmp
             - name: ingest
               mountPath: /ingest
             - name: media

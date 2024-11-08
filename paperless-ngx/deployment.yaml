@@ -32,7 +32,7 @@ spec:
               cpu: 400m
             limits:
               memory: 8Gi
-              cpu: 4
+              cpu: 2
 
           volumeMounts:
             - name: data

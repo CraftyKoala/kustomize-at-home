@@ -31,8 +31,8 @@ spec:
               memory: 400Mi
               cpu: 400m
             limits:
-              memory: 4Gi
-              cpu: 2
+              memory: 8Gi
+              cpu: 4
 
           volumeMounts:
             - name: data

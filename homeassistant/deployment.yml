@@ -50,7 +50,7 @@ spec:
               protocol: TCP
             - name: unicast
               containerPort: 5683
-              protocol: TCP
+              protocol: UDP
 
             # -- Homematic XmlRpc
             - name: xmlrpc

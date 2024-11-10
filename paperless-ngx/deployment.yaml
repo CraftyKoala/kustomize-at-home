@@ -21,7 +21,7 @@ spec:
 
       containers:
         - name: paperless
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.5.1
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.13
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false

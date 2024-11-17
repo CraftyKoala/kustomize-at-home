@@ -3,8 +3,26 @@ kind: ConfigMap
 metadata:
   name: paperless-config
 data:
+  USERMAP_UID: "1000"
+  USERMAP_GID: "1000"
+
   PAPERLESS_URL: "http://paperless:8000"
   PAPERLESS_REDIS: "redis://redis:6379"
   PAPERLESS_DBHOST: "postgres"
   PAPERLESS_DBNAME: "paperless"
   PAPERLESS_DBUSER: "paperless"
+
+  PAPERLESS_CONSUMPTION_DIR: "/ingest"
+  PAPERLESS_DATA_DIR: "/data"
+  PAPERLESS_MEDIA_ROOT: "/media"
+  PAPERLESS_PRE_CONSUME_SCRIPT: "/scripts/preconsume.sh"
+
+  PAPERLESS_CONSUMER_ENABLE_BARCODES: "true"
+  PAPERLESS_CONSUMER_ENABLE_ASN_BARCODE: "true"
+  PAPERLESS_CONSUMER_BARCODE_SCANNER: "ZXING"
+
+  PAPERLESS_OCR_LANGUAGE: "deu+eng"
+  PAPERLESS_OCR_CLEAN: "clean-final"
+  PAPERLESS_OCR_DESKEW: "true"
+  PAPERLESS_OCR_ROTATE_PAGES: "true"
+  PAPERLESS_OCR_PAGES: "40"

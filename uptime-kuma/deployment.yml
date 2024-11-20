@@ -22,7 +22,7 @@ spec:
 
       containers:
         - name: uptime-kuma
-          image: louislam/uptime-kuma:1.23
+          image: louislam/uptime-kuma:1.23.15
           imagePullPolicy: IfNotPresent
 
           volumeMounts:

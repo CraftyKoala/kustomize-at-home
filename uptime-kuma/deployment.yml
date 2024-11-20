@@ -5,7 +5,10 @@ metadata:
   labels:
     app: uptime-kuma
 spec:
+  revisionHistoryLimit: 2
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: uptime-kuma
@@ -16,14 +19,10 @@ spec:
     spec:
       dnsPolicy: ClusterFirstWithHostNet
       hostNetwork: true
-      
-      replicas: 1
-      strategy:
-        type: Recreate
-      
+
       containers:
         - name: uptime-kuma
-          image: louislam/uptime-kuma:1.16.1
+          image: louislam/uptime-kuma:1.23
           imagePullPolicy: IfNotPresent
 
           volumeMounts:
@@ -34,9 +33,8 @@ spec:
             - name: ui
               containerPort: 3001
               protocol: TCP
-          
+
           resources:
             limits:
-              memory: "125Mi"
+              memory: "50Mi"
               cpu: "100m"
-    

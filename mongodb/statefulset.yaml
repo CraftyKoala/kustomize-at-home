@@ -22,7 +22,10 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: mongo-network-data
-            
+        - name: init-script
+          configMap:
+            name: mongo-network-init-script
+
       containers:
         - name: mongodb
           image: "mongo:7.0.12"
@@ -41,20 +44,22 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data/db
+            - name: init-script
+              mountPath: /docker-entrypoint-initdb.d
 
           ports:
             - name: api
-              containerPort: 27017  
+              containerPort: 27017
               protocol: TCP
 
           env:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-network-credentials
-                key: init_user     
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-network-credentials
-                key: init_password    
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-network-credentials
+                  key: init_user
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-network-credentials
+                  key: init_password

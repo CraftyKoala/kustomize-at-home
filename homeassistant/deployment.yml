@@ -43,6 +43,8 @@ spec:
           env:
             - name: TZ
               value: Europe/Berlin
+            - name: PYTHONPATH
+              value: "/config/deps"
 
           ports:
             - name: http

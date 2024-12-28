@@ -26,6 +26,9 @@ spec:
           env:
             - name: TZ
               value: "Europe/Berlin"
+          envFrom:
+            - secretRef:
+                name: frigate-camera-secrets
           volumeMounts:
             - name: config
               mountPath: /config

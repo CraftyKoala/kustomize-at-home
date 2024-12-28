@@ -23,8 +23,15 @@ spec:
           securityContext:
             privileged: true
           ports:
-            - containerPort: 8971
-              name: http
+            - name: http
+              containerPort: 8971
+              protocol: TCP
+            - name: rtmp
+              containerPort: 1935
+              protocol: TCP
+            - name: rtsp
+              containerPort: 8554
+              protocol: TCP
           env:
             - name: TZ
               value: "Europe/Berlin"

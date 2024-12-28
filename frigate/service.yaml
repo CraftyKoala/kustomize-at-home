@@ -4,8 +4,14 @@ metadata:
   name: frigate
 spec:
   ports:
-    - port: 443
-      targetPort: 8971
-      name: http
+    - name: http
+      targetPort: http
+      port: 443
+    - name: rtmp
+      targetPort: rtmp
+      port: 1935
+    - name: rtsp
+      targetPort: rtsp
+      port: 8554
   selector:
     app: frigate

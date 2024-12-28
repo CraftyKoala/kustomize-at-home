@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frigate
+spec:
+  revisionHistoryLimit: 2
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: frigate
+  template:
+    metadata:
+      labels:
+        app: frigate
+    spec:
+      containers:
+        - name: frigate
+          image: ghcr.io/blakeblackshear/frigate:0.14.1
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 8971
+              name: http
+          env:
+            - name: TZ
+              value: "Europe/Berlin"
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: database
+              mountPath: /db
+            - name: media
+              mountPath: /media
+            - name: shm
+              mountPath: /dev/shm
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "2000m"
+      volumes:
+        - name: config
+          configMap:
+            name: frigate-config
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Gi

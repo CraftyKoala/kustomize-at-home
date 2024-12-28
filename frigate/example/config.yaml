@@ -1,0 +1,78 @@
+# Database settings
+database:
+  path: /media/frigate.db
+
+# MQTT is optional but recommended for Home Assistant integration
+mqtt:
+  enabled: false
+  # host: mqtt
+  # port: 1883
+  # topic_prefix: frigate
+  # client_id: frigate
+
+# Global object configuration
+objects:
+  track:
+    - person
+    - car
+    - dog
+    - cat
+  filters:
+    person:
+      min_score: 0.5
+      threshold: 0.7
+
+# Default ffmpeg parameters
+ffmpeg:
+  hwaccel_args: []
+  input_args: []
+  output_args: []
+
+# Recording settings
+record:
+  enabled: false
+  retain:
+    days: 7
+    mode: all # all or motion
+  events:
+    retain:
+      default: 7
+      mode: motion
+
+# Example camera configuration
+cameras:
+  # Example camera 1
+  # cam1:
+  #   ffmpeg:
+  #     inputs:
+  #       - path: rtsp://username:password@camera-ip:554/stream
+  #         roles:
+  #           - detect
+  #           - record
+  #           - rtmp
+  #   detect:
+  #     width: 1280
+  #     height: 720
+  #     fps: 5
+  #   objects:
+  #     track:
+  #       - person
+  #       - car
+  #   zones:
+  #     front_door:
+  #       coordinates: 0,0,0,1,1,1,1,0
+  #       objects:
+  #         - person
+
+# Detector configuration
+detectors:
+  cpu1:
+    type: cpu
+    num_threads: 3
+
+# Web interface settings
+ui:
+  timezone: Europe/Berlin
+  use_dark_theme: true
+  dashboard:
+    cameras_per_row: 3

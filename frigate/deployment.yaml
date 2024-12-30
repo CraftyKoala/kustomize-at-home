@@ -23,8 +23,11 @@ spec:
           securityContext:
             privileged: true
           ports:
-            - name: http
+            - name: https
               containerPort: 8971
+              protocol: TCP
+            - name: unsecured-api
+              containerPort: 5000
               protocol: TCP
             - name: rtmp
               containerPort: 1935

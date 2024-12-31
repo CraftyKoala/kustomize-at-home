@@ -4,8 +4,8 @@ metadata:
   name: frigate
 spec:
   ports:
-    - name: http
-      targetPort: http
+    - name: https
+      targetPort: https
       port: 443
     - name: rtmp
       targetPort: rtmp

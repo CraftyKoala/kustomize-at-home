@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-proxy-manager
+spec:
+  revisionHistoryLimit: 2
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      containers:
+      - name: nginx-proxy-manager
+        image: jc21/nginx-proxy-manager:2.12.2
+        ports:
+        - name: http
+          containerPort: 80
+        - name: admin
+          containerPort: 81
+        - name: https
+          containerPort: 443
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: letsencrypt
+          mountPath: /etc/letsencrypt

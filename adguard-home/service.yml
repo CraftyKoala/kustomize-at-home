@@ -8,7 +8,6 @@ metadata:
     metallb.universe.tf/allow-shared-ip: adguardhome
 
 spec:
-  loadBalancerIP: 10.0.0.0
   type: LoadBalancer
 
   ports:
@@ -35,7 +34,6 @@ metadata:
     metallb.universe.tf/allow-shared-ip: adguardhome
 
 spec:
-  loadBalancerIP: 10.0.0.0
   type: LoadBalancer
 
   ports:
@@ -62,7 +60,6 @@ metadata:
     metallb.universe.tf/allow-shared-ip: adguardhome
 
 spec:
-  loadBalancerIP: 10.0.0.0
   type: LoadBalancer
 
   ports:

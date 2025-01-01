@@ -15,7 +15,7 @@ spec:
         app: adguard-home
     spec:
       dnsPolicy: ClusterFirstWithHostNet
-      hostNetwork: false
+      hostNetwork: true
       
       replicas: 1
       strategy:

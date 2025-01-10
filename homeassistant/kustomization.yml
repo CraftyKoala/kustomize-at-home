@@ -3,3 +3,7 @@ kind: Kustomization
 resources:
   - deployment.yml
   - service.yml
+
+images:
+  - name: ghcr.io/home-assistant/home-assistant
+    newTag: 2025.1.2

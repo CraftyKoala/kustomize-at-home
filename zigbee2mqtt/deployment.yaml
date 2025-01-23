@@ -42,6 +42,8 @@ spec:
               mountPath: /run/udev
             - name: ttyacm
               mountPath: /dev/ttyACM0
+            - name: zigbee
+              mountPath: /dev/serial/by-id/zigbee
 
           ports:
             - name: http

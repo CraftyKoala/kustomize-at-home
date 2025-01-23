@@ -40,8 +40,6 @@ spec:
               mountPath: /app/data
             - name: udev
               mountPath: /run/udev
-            - name: ttyacm
-              mountPath: /dev/ttyACM0
 
           ports:
             - name: http
@@ -52,6 +50,3 @@ spec:
         - name: udev
           hostPath:
             path: /run/udev
-        - name: ttyacm
-          hostPath:
-            path: /dev/ttyACM0

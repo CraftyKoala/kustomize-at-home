@@ -17,7 +17,7 @@ spec:
       dnsPolicy: ClusterFirst
       hostNetwork: false
       containers:
-        - name: node-red
+        - name: zigbee2mqtt
           image: koenkk/zigbee2mqtt:1.41.0
           imagePullPolicy: IfNotPresent
           securityContext:
@@ -42,8 +42,6 @@ spec:
               mountPath: /run/udev
             - name: ttyacm
               mountPath: /dev/ttyACM0
-            - name: zigbee
-              mountPath: /dev/serial/by-id/zigbee
 
           ports:
             - name: http

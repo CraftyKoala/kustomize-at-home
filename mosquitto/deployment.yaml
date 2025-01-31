@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mosquitto
+spec:
+  revisionHistoryLimit: 2
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mosquitto
+
+  template:
+    metadata:
+      labels:
+        app: mosquitto
+
+    spec:
+      volumes:
+        - name: mosquitto-auth-volume
+          emptyDir: {}
+        - name: secret-volume
+          secret:
+            secretName: mosquitto-auth
+        - name: config-volume
+          configMap:
+            name: mosquitto-config
+
+      initContainers:
+        - name: generate-mosquitto-passwd
+          image: eclipse-mosquitto
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              rm -f /mosquitto/config/mosquitto.passwd
+              touch /mosquitto/config/mosquitto.passwd
+              chmod 600 /mosquitto/config/mosquitto.passwd
+              for user in $(ls /secrets); do
+                pass=$(cat /secrets/$user)
+                mosquitto_passwd -b /mosquitto/config/mosquitto.passwd $user $pass
+              done
+          volumeMounts:
+            - name: mosquitto-auth-volume
+              mountPath: /mosquitto/config
+            - name: secret-volume
+              mountPath: /secrets
+              readOnly: true
+
+      containers:
+        - name: mosquitto
+          image: eclipse-mosquitto
+          volumeMounts:
+            - name: mosquitto-auth-volume
+              mountPath: /mosquitto/config
+            - name: config-volume
+              mountPath: /mosquitto/config/mosquitto.conf
+              subPath: mosquitto.conf
+
+          ports:
+            - name: mqtt
+              containerPort: 1883
+
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"

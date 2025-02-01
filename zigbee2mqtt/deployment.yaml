@@ -26,6 +26,16 @@ spec:
           env:
             - name: TZ
               value: Europe/Berlin
+            - name: ZIGBEE2MQTT_CONFIG_MQTT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: zigbee2mqtt-secrets
+                  key: mqtt_user
+            - name: ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zigbee2mqtt-secrets
+                  key: mqtt_password
 
           resources:
             requests:

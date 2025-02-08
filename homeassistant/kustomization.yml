@@ -6,4 +6,4 @@ resources:
 
 images:
   - name: ghcr.io/home-assistant/home-assistant
-    newTag: 2025.1.2
+    newTag: 2025.2

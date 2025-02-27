@@ -17,35 +17,35 @@ spec:
       dnsPolicy: ClusterFirst
       hostNetwork: false
       containers:
-      - name: audiobookshelf
-        image: "ghcr.io/advplyr/audiobookshelf:latest"
-        imagePullPolicy: IfNotPresent
-        securityContext:
-          allowPrivilegeEscalation: false
+        - name: audiobookshelf
+          image: "ghcr.io/advplyr/audiobookshelf:latest"
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
 
-        resources:
-          requests:
-            memory: 200M
-            cpu: 200m
-          limits:
-            memory: 1Gi
-            cpu: 1
+          resources:
+            requests:
+              memory: 200M
+              cpu: 200m
+            limits:
+              memory: 1Gi
+              cpu: 1
 
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        - name: metadata
-          mountPath: /metadata
-        - name: audiobooks
-          mountPath: /audiobooks
-        - name: podcasts
-          mountPath: /podcasts
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: metadata
+              mountPath: /metadata
+            - name: audiobooks
+              mountPath: /audiobooks
+            - name: podcasts
+              mountPath: /podcasts
 
-        ports:
-        - name: http
-          containerPort: 13378
-          protocol: TCP
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
 
-        env:
-        - name: TZ
-          value: "Europe/Berlin"
+          env:
+            - name: TZ
+              value: "Europe/Berlin"

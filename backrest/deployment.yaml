@@ -49,8 +49,8 @@ spec:
             - name: XDG_CACHE_HOME
               value: "/cache"
 
-    volumes:
-      - name: cache
-        emptyDir:
-          sizeLimit: 512Mi
-          medium: Memory
+      volumes:
+        - name: cache
+          emptyDir:
+            sizeLimit: 512Mi
+            medium: Memory

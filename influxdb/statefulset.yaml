@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: influxdb
+  labels:
+    app: influxdb
+spec:
+  serviceName: influxdb
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      dnsPolicy: "ClusterFirst"
+      hostNetwork: false
+      containers:
+        - name: influxdb
+          image: "influxdb:2.7"
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+
+          resources:
+            requests:
+              memory: 100M
+              cpu: 100m
+            limits:
+              memory: 500M
+              cpu: 1
+
+          volumeMounts:
+            - name: config
+              mountPath: /etc/influxdb2
+            - name: data
+              mountPath: /var/lib/influxdb2
+
+          ports:
+            - name: http
+              containerPort: 8086
+              protocol: TCP

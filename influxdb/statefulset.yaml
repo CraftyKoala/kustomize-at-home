@@ -38,6 +38,16 @@ spec:
             - name: data
               mountPath: /var/lib/influxdb2
 
+          env:
+            - name: DOCKER_INFLUXDB_INIT_MODE
+              value: "setup"
+
+          envFrom:
+            - configMapRef:
+                name: influxdb-env
+            - secretRef:
+                name: influxdb-credentials
+
           ports:
             - name: http
               containerPort: 8086

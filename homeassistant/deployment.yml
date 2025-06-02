@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: home-assistant
   labels:
-    app.kubernetes.io/name: homea-ssistant
+    app.kubernetes.io/name: home-assistant
 
 spec:
   revisionHistoryLimit: 2

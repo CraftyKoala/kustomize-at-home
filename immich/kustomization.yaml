@@ -8,9 +8,9 @@ resources:
 
 images:
   - name: ghcr.io/immich-app/immich-machine-learning
-    newTag: v1.131.3
+    newTag: v1.140.1
   - name: ghcr.io/immich-app/immich-server
-    newTag: v1.131.3
+    newTag: v1.140.1
 
 configMapGenerator:
   - name: immich-env
